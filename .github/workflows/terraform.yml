@@ -22,20 +22,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.1.7  
-
-      - name: Install Terraform
-        shell: pwsh
-        run: |
-            # Download the Terraform zip file
-            Invoke-WebRequest -Uri https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_windows_amd64.zip -OutFile terraform.zip
-  
-            # Extract the zip file
-            Expand-Archive -Path terraform.zip -DestinationPath C:\terraform
-  
-            # Add Terraform to PATH
-            [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\terraform", [System.EnvironmentVariableTarget]::Machine)
-  
-            
   
         # Step 3: Verify Terraform Installation
       - name: Verify Terraform Version
