@@ -36,7 +36,7 @@ jobs:
         run: terraform -version
         
       
-      - name: Initialize Terraform
+      - name: Initializing Terraform
         run: terraform init
         working-directory: ./terraform-project  
 
