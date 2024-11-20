@@ -26,8 +26,7 @@ jobs:
         # Step 3: Verify Terraform Installation
       - name: Verify Terraform Version
         run: terraform -version
-        shell: pwsh
-
+        
       
       - name: Initialize Terraform
         run: terraform init
