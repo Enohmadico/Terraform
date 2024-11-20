@@ -12,4 +12,25 @@ jobs:
   terraform:
     name: Terraform workflow
     runs-on: windows-latest
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+    
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0  
+
+      
+      - name: Initialize Terraform
+        run: terraform init
+        working-directory: ./terraform-project  
+
+      
+      - name: Check Terraform Formatting
+        run: terraform fmt -check
+        working-directory: ./terraform-project
+
       
