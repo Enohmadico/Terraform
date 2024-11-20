@@ -101,7 +101,7 @@ variable "public_subnet_alb_name" {
 }
 
 variable "target_group_name" {
-  default = "alb-ts"
+  default = "alb-tsg"
 
 }
 variable "lt_sg_group_name" {
@@ -127,7 +127,7 @@ variable "desired_capacity" {
 
 }
 variable "asg_lt_name" {
-  default = "asg-lt"
+  default = "asg-lts"
 }
 variable "lt_asg_ami" {
   default = "ami-063d43db0594b521b"
