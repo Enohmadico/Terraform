@@ -23,6 +23,18 @@ jobs:
         with:
           terraform_version: 1.5.0  
 
+      - name: Install Terraform
+        run: |
+            Invoke-WebRequest -Uri https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_windows_amd64.zip -OutFile terraform.zip
+            Expand-Archive -Path terraform.zip -DestinationPath C:\terraform
+            [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\terraform", [System.EnvironmentVariableTarget]::Machine)
+        shell: pwsh
+  
+        # Step 3: Verify Terraform Installation
+      - name: Verify Terraform Version
+        run: terraform -version
+        shell: pwsh
+
       
       - name: Initialize Terraform
         run: terraform init
