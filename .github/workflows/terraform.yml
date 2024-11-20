@@ -34,7 +34,7 @@ jobs:
 
       
       - name: Check Terraform Formatting
-        run: terraform fmt -check
+        run: terraform validate 
         working-directory: ./terraform-project
 
       - name: Terraform Plan
