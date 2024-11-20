@@ -58,6 +58,6 @@ jobs:
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
 
-      - run: echo " Done destroying"
+      - run: echo " Done destroying the infrastructure"
       
      
