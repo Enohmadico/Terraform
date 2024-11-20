@@ -15,6 +15,8 @@ jobs:
     environment: production
     steps:
       # Repository checkout 
+      - name: Write-host
+        run: Write-host "checkingout the repo"
       - name: Checkout code
         uses: actions/checkout@v4
        # setting up terraform 
@@ -49,7 +51,7 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
 
-      - name: Terraform destroys
+      - name: Terraform destroy
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
       
