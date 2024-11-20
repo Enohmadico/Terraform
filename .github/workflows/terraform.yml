@@ -57,5 +57,7 @@ jobs:
       - name: Terraform destroy
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
+
+      - run: echo " Done destroying"
       
      
