@@ -16,7 +16,7 @@ jobs:
     steps:
       # Repository checkout 
       - name: echo
-        run: echo "checkingout the repo"
+        run: echo "checkout the repo"
       - name: Checkout code
         uses: actions/checkout@v4
        # setting up terraform 
@@ -25,12 +25,15 @@ jobs:
         with:
           terraform_version: "1.1.7"
         #configuring terraform credentials 
+      - name: echo
+        run : echo " now configuring aws"
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: us-east-1
+      
 
       - name: Verify Terraform Version
         run: terraform -version
