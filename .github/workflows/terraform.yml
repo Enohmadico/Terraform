@@ -15,8 +15,8 @@ jobs:
     environment: production
     steps:
       # Repository checkout 
-      - name: Write-host
-        run: Write-host "checkingout the repo"
+      - name: echo
+        run: echo "checkingout the repo"
       - name: Checkout code
         uses: actions/checkout@v4
        # setting up terraform 
