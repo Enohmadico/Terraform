@@ -33,4 +33,8 @@ jobs:
         run: terraform fmt -check
         working-directory: ./terraform-project
 
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ./terraform-project
+
       
