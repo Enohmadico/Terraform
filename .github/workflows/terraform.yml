@@ -30,15 +30,15 @@ jobs:
       
       - name: Initialize Terraform
         run: terraform init
-        working-directory: .\terraform-project  
+        working-directory: ./terraform-project  
 
       
       - name: Check Terraform Formatting
         run: terraform fmt -check
-        working-directory: .\terraform-project
+        working-directory: ./terraform-project
 
       - name: Terraform Plan
         run: terraform plan
-        working-directory: .\terraform-project
+        working-directory: ./terraform-project
 
       
