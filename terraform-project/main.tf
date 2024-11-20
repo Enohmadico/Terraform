@@ -255,5 +255,5 @@ resource "aws_launch_template" "lt-asg" {
   key_name                ="keypair"
   #key_name               =var.lt_asg_key_name 
   vpc_security_group_ids = [aws_security_group.lt-sg.id]
-  user_data              = filebase64("./installapache.sh")
+  user_data              = filebase64("./apach.sh")
 }
