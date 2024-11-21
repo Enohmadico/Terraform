@@ -16,7 +16,7 @@ jobs:
     steps:
       # Repository checkout 
       - name: echo
-        run: echo "checkout the repo"
+        run: echo "checkout the repository"
       - name: Checkout code
         uses: actions/checkout@v4
        # setting up terraform 
