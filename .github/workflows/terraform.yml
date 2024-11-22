@@ -48,12 +48,16 @@ jobs:
         #Terraform plan 
       - name: Terraform Plan
         run: terraform plan
+        # Output terraform plan in a file 
+      - run: terraform plan -out=tfplan
+      - name: Show Terraform Plan run
+        run: terraform show -json tfplan | jq
         working-directory: ./terraform-project
         # Terraform apply  
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
-
+       # Terraform destroy
       - name: Terraform destroy
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
