@@ -51,6 +51,7 @@ jobs:
         working-directory: ./terraform-project
         # Output terraform plan in a file 
       - run: terraform plan -out=tfplan
+        working-directory: ./terraform-project
 
       - name: Show Terraform Plan run
         run: terraform show -json tfplan | jq
