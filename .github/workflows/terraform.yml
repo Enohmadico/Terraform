@@ -60,6 +60,9 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
+      - run: echo " waiting for 2minutes before destruction"
+      - name: single line script
+        run: sleep 120 
        # Terraform destroy
       - name: Terraform destroy
         run: terraform destroy -auto-approve
