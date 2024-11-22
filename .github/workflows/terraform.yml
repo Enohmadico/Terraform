@@ -15,7 +15,7 @@ jobs:
     environment: production
     steps:
       # Repository checkout 
-      - name: echo
+      - name: checkout Repos
         run: echo "checkout the repository"
       - name: Checkout code
         uses: actions/checkout@v4
