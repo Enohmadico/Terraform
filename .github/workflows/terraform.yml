@@ -108,4 +108,4 @@ jobs:
 
       # Cleanup
       - name: Cleanup
-        run: echo "Done destroying the infrastructure"
+        run: echo "Done destroying the infrastructures"
