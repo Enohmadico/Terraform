@@ -41,6 +41,7 @@ jobs:
         uses: terraform-linterssetup-tflint@v1
         with: 
             tflint_version: v0.52.0
+      - run : echo "adding tflint"
       - name: Init TFLint
         run: tflint --init
       - name: Run TFLint
