@@ -66,15 +66,19 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
         working-directory: ./terraform-project
+
+      - name: Show Terraform Plan Output
+        run: terraform show tfplan 
+        working-directory: ./terraform-project
         
       # Saving Terraform plan to a file
       - name: Save Terraform Plan
-        run: terraform plan -out=tfplan.txt
+        run: terraform plan -out=tfplan
         working-directory: ./terraform-project
 
       # Showing Terraform plan in JSON format
       - name: Show Terraform Plan
-        run: terraform show -json tfplan.txt | jq .
+        run: terraform show -json tfplan | jq 
         working-directory: ./terraform-project
         
       # Applying Terraform changes 
