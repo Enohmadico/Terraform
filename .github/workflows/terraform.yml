@@ -86,7 +86,7 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
         
-      # Waiting for 2 minutes before destruction
+      # Waiting for 2 minutes before destroying the infra
       - name: Wait for 1Minutes
         run: sleep 10
         
