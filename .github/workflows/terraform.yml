@@ -69,12 +69,12 @@ jobs:
         
       # Saving Terraform plan to a file
       - name: Save Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan.txt
         working-directory: ./terraform-project
 
       # Showing Terraform plan in JSON format
       - name: Show Terraform Plan
-        run: terraform show -json tfplan | jq .
+        run: terraform show -json tfplan.txt | jq .
         working-directory: ./terraform-project
         
       # Applying Terraform changes 
@@ -83,8 +83,8 @@ jobs:
         working-directory: ./terraform-project
         
       # Waiting for 2 minutes before destruction
-      - name: Wait for 2 Minutes
-        run: sleep 120
+      - name: Wait for 1Minutes
+        run: sleep 10
         
       # Destroying Terraform resources
       - name: Terraform Destroy
