@@ -15,70 +15,81 @@ jobs:
     environment: production
     steps:
       # Repository checkout 
-      - name: checkout Repos
-        run: echo "checkout the repository"
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-       # setting up terraform 
+
+      # Setting up Terraform 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: "1.1.7"
-        #configuring terraform credentials 
-      - name: echo
-        run : echo " now configuring aws"
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: us-east-1
-      
 
+      # Configuring AWS credentials 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Verifying Terraform version
       - name: Verify Terraform Version
         run: terraform -version
-      - name: Setup TFLint uses
-        uses: terraform-linterssetup-tflint@v1
+
+      # Setting up TFLint
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
         with: 
-            tflint_version: v0.52.0
-      - run : echo "adding tflint"
+          tflint_version: v0.52.0
+
+      # Initializing TFLint
       - name: Init TFLint
         run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Running TFLint
       - name: Run TFLint
         run: tflint -f compact
       
-         #Initializing terraform 
+      # Initializing Terraform 
       - name: Initializing Terraform
         run: terraform init
         working-directory: ./terraform-project  
-        #Terraform validate
+        
+      # Checking Terraform formatting
       - name: Check Terraform Formatting
         run: terraform validate 
         working-directory: ./terraform-project
-        #Terraform plan 
+        
+      # Planning Terraform changes
       - name: Terraform Plan
         run: terraform plan
         working-directory: ./terraform-project
-        # Output terraform plan in a file 
-      - run: terraform plan -out=tfplan
+        
+      # Saving Terraform plan to a file
+      - name: Save Terraform Plan
+        run: terraform plan -out=tfplan
         working-directory: ./terraform-project
 
-      - name: Show Terraform Plan run
-        run: terraform show -json tfplan | jq
+      # Showing Terraform plan in JSON format
+      - name: Show Terraform Plan
+        run: terraform show -json tfplan | jq .
         working-directory: ./terraform-project
-        # Terraform apply  
+        
+      # Applying Terraform changes 
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
-      - run: echo " waiting for 2minutes before destruction"
-      - name: single line script
-        run: sleep 120 
-       # Terraform destroy
-      - name: Terraform destroy
+        
+      # Waiting for 2 minutes before destruction
+      - name: Wait for 2 Minutes
+        run: sleep 120
+        
+      # Destroying Terraform resources
+      - name: Terraform Destroy
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
 
-      - run: echo " Done destroying the infrastructure"
-      - run: echo "pipeline"
-      
-     
+      - name: Cleanup
+        run: echo "Done destroying the infrastructure"
