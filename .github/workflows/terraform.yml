@@ -37,6 +37,15 @@ jobs:
 
       - name: Verify Terraform Version
         run: terraform -version
+      - name: Setup TFLint uses
+        uses: terraform-linterssetup-tflint@v1
+        with: 
+            tflint_version: v0.52.0
+      - name: Init TFLint
+        run: tflint --init
+      - name: Run TFLint
+        run: tflint -f compact
+      
          #Initializing terraform 
       - name: Initializing Terraform
         run: terraform init
