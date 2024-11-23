@@ -14,17 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      # Repository checkout 
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setting up Terraform 
+      # Setup Terraform 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: "1.1.7"
 
-      # Configuring AWS credentials 
+      # Configure AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -32,68 +32,80 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Verifying Terraform version
+      # Verify Terraform Version
       - name: Verify Terraform Version
         run: terraform -version
 
-      # Setting up TFLint
+      # Setup TFLint
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v1
         with: 
           tflint_version: v0.52.0
 
-      # Initializing TFLint
+      # Initialize TFLint
       - name: Init TFLint
         run: tflint --init
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Running TFLint
+      # Run TFLint
       - name: Run TFLint
         run: tflint -f compact
-      
-      # Initializing Terraform 
+
+      # Initialize Terraform 
       - name: Initializing Terraform
         run: terraform init
         working-directory: ./terraform-project  
-        
-      # Checking Terraform formatting
-      - name: Check Terraform Formatting
-        run: terraform validate 
-        working-directory: ./terraform-project
-        
-      # Planning Terraform changes
-      - name: Terraform Plan
-        run: terraform plan
+
+      # Validate Terraform
+      - name: Validate Terraform
+        run: terraform validate
         working-directory: ./terraform-project
 
-      - name: Show Terraform Plan Output
-        run: terraform show tfplan 
-        working-directory: ./terraform-project
-        
-      # Saving Terraform plan to a file
-      - name: Save Terraform Plan
+      # Generate Terraform Plan
+      - name: Generate Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: ./terraform-project
 
-      # Showing Terraform plan in JSON format
-      - name: Show Terraform Plan
-        run: terraform show -json tfplan | jq 
+      # Verify Plan File
+      - name: Verify Plan File
+        run: ls -la ./terraform-project/tfplan
         working-directory: ./terraform-project
-        
-      # Applying Terraform changes 
+
+      # Show Terraform Plan
+      - name: Show Terraform Plan
+        run: terraform show tfplan
+        working-directory: ./terraform-project
+
+      # Save Terraform Plan in JSON
+      - name: Save Terraform Plan in JSON
+        run: terraform show -json tfplan > tfplan.json
+        working-directory: ./terraform-project
+
+      # Display JSON Plan
+      - name: Display JSON Plan
+        run: cat tfplan.json
+        working-directory: ./terraform-project
+
+      # Parse JSON Plan with jq
+      - name: Parse JSON Plan with jq
+        run: jq . tfplan.json
+        working-directory: ./terraform-project
+
+      # Apply Terraform changes 
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform-project
-        
-      # Waiting for 2 minutes before destroying the infra
-      - name: Wait for 1Minutes
-        run: sleep 10
-        
-      # Destroying Terraform resources
+
+      # Wait for 2 minutes before destruction
+      - name: Wait for 2 Minutes
+        run: sleep 120
+
+      # Destroy Terraform resources
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
         working-directory: ./terraform-project
 
+      # Cleanup
       - name: Cleanup
         run: echo "Done destroying the infrastructure"
