@@ -67,10 +67,7 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./terraform-project
 
-      # Verify Plan File
-      - name: Verify Plan File
-        run: ls -la ./terraform-project/tfplan
-        working-directory: ./terraform-project
+      
 
       # Show Terraform Plan
       - name: Show Terraform Plan
