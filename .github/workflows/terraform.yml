@@ -77,20 +77,9 @@ jobs:
         run: terraform show tfplan
         working-directory: ./terraform-project
 
-      # Save Terraform Plan in JSON
-      - name: Save Terraform Plan in JSON
-        run: terraform show -json tfplan > tfplan.json
-        working-directory: ./terraform-project
-
-      # Display JSON Plan
-      - name: Display JSON Plan
-        run: cat tfplan.json
-        working-directory: ./terraform-project
-
-      # Parse JSON Plan with jq
-      - name: Parse JSON Plan with jq
-        run: jq . tfplan.json
-        working-directory: ./terraform-project
+      
+      
+      
 
       # Apply Terraform changes 
       - name: Terraform Apply
