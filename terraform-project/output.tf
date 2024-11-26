@@ -1,0 +1,1 @@
+output "instance_ips" { value = aws_autoscaling_group.asg.instance_ips }
