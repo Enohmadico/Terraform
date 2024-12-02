@@ -66,17 +66,11 @@ jobs:
       - name: Generate Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: ./terraform-project
-
-      
-
+        
       # Show Terraform Plan
       - name: Show Terraform Plan
         run: terraform show tfplan
         working-directory: ./terraform-project
-
-      
-      
-      
 
       # Apply Terraform changes 
       - name: Terraform Apply
